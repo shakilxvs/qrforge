@@ -36,6 +36,7 @@ export default function PreviewCanvas({
   const [error, setError] = useState<string | null>(null);
   const [empty, setEmpty] = useState(true);
   const [scanKey, setScanKey] = useState(0);
+  const [showScan, setShowScan] = useState(false);
   const [dimensions, setDimensions] = useState<{ w: number; h: number } | null>(null);
 
   // Render effect (debounced by the parent via state updates)
@@ -110,6 +111,17 @@ export default function PreviewCanvas({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mode, JSON.stringify(qrData), JSON.stringify(qrCustom), JSON.stringify(barcode), JSON.stringify(barcodeCustom)]);
 
+  // Show scan line briefly, then remove from DOM entirely
+  useEffect(() => {
+    if (empty || loading || error) {
+      setShowScan(false);
+      return;
+    }
+    setShowScan(true);
+    const t = window.setTimeout(() => setShowScan(false), 1600);
+    return () => window.clearTimeout(t);
+  }, [scanKey, empty, loading, error]);
+
   const handleTestScan = () => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -151,9 +163,9 @@ export default function PreviewCanvas({
         className="relative flex w-full items-center justify-center rounded-xl bg-white p-6"
         style={{ minHeight: 320 }}
       >
-        {/* Empty state overlay */}
+        {/* Empty state — absolutely positioned so it centers no matter what */}
         {empty && (
-          <div className="pointer-events-none flex flex-col items-center gap-3 text-center">
+          <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center gap-3 p-6 text-center">
             <div className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--bg-secondary)]">
               <QrCode className="h-7 w-7 text-[var(--text-muted)]" />
             </div>
@@ -169,17 +181,16 @@ export default function PreviewCanvas({
           className={`max-h-[400px] max-w-full transition-opacity duration-200 ${
             empty ? "invisible h-0 w-0" : "block"
           }`}
-          style={{
-            imageRendering: "pixelated",
-            height: "auto",
-            width: "auto",
-            maxWidth: "100%",
-          }}
+          style={
+            empty
+              ? { width: 0, height: 0, maxWidth: 0 }
+              : { imageRendering: "pixelated", height: "auto", width: "auto", maxWidth: "100%" }
+          }
           aria-label="Generated code preview"
         />
 
-        {/* Scan line animation */}
-        {!empty && !loading && !error && (
+        {/* Scan line animation — only mounted briefly, unmounts completely after ~1.6s */}
+        {showScan && (
           <div key={scanKey} className="scan-overlay">
             <div className="scan-line animate-scan-line" />
           </div>
