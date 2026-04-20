@@ -45,7 +45,7 @@ const config: Config = {
       },
       animation: {
         "fade-in": "fade-in 200ms ease-out",
-        "scan-line": "scan-line 1500ms ease-in-out 1",
+        "scan-line": "scan-line 1500ms ease-in-out 1 forwards",
       },
     },
   },
