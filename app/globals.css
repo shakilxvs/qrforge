@@ -1,0 +1,191 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-primary: #0a0a0a;
+  --bg-secondary: #111111;
+  --bg-card: #1a1a1a;
+  --bg-hover: #222222;
+  --border: #2a2a2a;
+  --border-hover: #3a3a3a;
+  --text-primary: #ffffff;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --accent-light: #818cf8;
+  --success: #22c55e;
+  --warning: #f59e0b;
+  --error: #ef4444;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  min-height: 100vh;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--border-hover);
+}
+
+/* Form element resets */
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+}
+
+/* Selection */
+::selection {
+  background: var(--accent);
+  color: white;
+}
+
+/* React Colorful overrides for dark theme */
+.react-colorful {
+  width: 200px !important;
+  height: 200px !important;
+}
+.react-colorful__saturation {
+  border-radius: 8px 8px 0 0 !important;
+}
+.react-colorful__last-control {
+  border-radius: 0 0 8px 8px !important;
+}
+
+/* Reusable components */
+@layer components {
+  .qf-label {
+    @apply text-xs uppercase tracking-wider font-medium text-[var(--text-secondary)];
+  }
+
+  .qf-input {
+    @apply w-full px-3 py-2 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-md text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-colors duration-150 focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)];
+  }
+
+  .qf-input-invalid {
+    @apply border-[var(--error)] focus:border-[var(--error)] focus:ring-[var(--error)];
+  }
+
+  .qf-textarea {
+    @apply w-full px-3 py-2 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-md text-sm text-[var(--text-primary)] placeholder:text-[var(--text-muted)] transition-colors duration-150 focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] resize-none;
+  }
+
+  .qf-select {
+    @apply w-full px-3 py-2 bg-[var(--bg-secondary)] border border-[var(--border)] rounded-md text-sm text-[var(--text-primary)] transition-colors duration-150 focus:border-[var(--accent)] focus:ring-1 focus:ring-[var(--accent)] cursor-pointer appearance-none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a1a1aa' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 34px;
+  }
+
+  .qf-btn {
+    @apply inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-150 disabled:opacity-40 disabled:cursor-not-allowed;
+  }
+
+  .qf-btn-primary {
+    @apply qf-btn bg-[var(--accent)] text-white hover:bg-[var(--accent-hover)];
+  }
+
+  .qf-btn-secondary {
+    @apply qf-btn bg-[var(--bg-card)] border border-[var(--border)] text-[var(--text-primary)] hover:bg-[var(--bg-hover)] hover:border-[var(--border-hover)];
+  }
+
+  .qf-btn-ghost {
+    @apply qf-btn text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)];
+  }
+
+  .qf-card {
+    @apply bg-[var(--bg-card)] border border-[var(--border)] rounded-xl;
+  }
+
+  .qf-pill {
+    @apply px-3 py-1.5 rounded-md text-xs font-medium transition-colors duration-150 cursor-pointer;
+  }
+
+  .qf-pill-active {
+    @apply bg-[var(--accent)] text-white;
+  }
+
+  .qf-pill-idle {
+    @apply bg-[var(--bg-secondary)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-hover)];
+  }
+
+  .qf-divider {
+    @apply h-px bg-[var(--border)];
+  }
+
+  .qf-slider {
+    @apply w-full h-1 bg-[var(--bg-secondary)] rounded-full appearance-none cursor-pointer;
+  }
+
+  .qf-slider::-webkit-slider-thumb {
+    @apply appearance-none w-4 h-4 bg-[var(--accent)] rounded-full cursor-pointer transition-transform duration-150;
+  }
+
+  .qf-slider::-moz-range-thumb {
+    @apply w-4 h-4 bg-[var(--accent)] rounded-full cursor-pointer border-0;
+  }
+
+  .qf-slider:hover::-webkit-slider-thumb {
+    transform: scale(1.15);
+  }
+
+  .qf-focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg-primary)];
+  }
+}
+
+/* Scan line animation overlay */
+.scan-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent, rgba(99, 102, 241, 0.35), transparent);
+}
