@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { QrCode, Star, Menu, X } from "lucide-react";
+import { QrCode, Instagram, Menu, X } from "lucide-react";
 import { useState } from "react";
 
 export default function Header() {
@@ -41,14 +41,14 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <a
-            href="https://github.com/shakilxvs/qrforge"
+            href="https://instagram.com/shakilxvs"
             target="_blank"
             rel="noopener noreferrer"
-            aria-label="Star QRForge on GitHub"
+            aria-label="Follow @shakilxvs on Instagram"
             className="qf-btn-secondary hidden md:inline-flex"
           >
-            <Star className="h-4 w-4" />
-            <span>Star on GitHub</span>
+            <Instagram className="h-4 w-4" />
+            <span>Follow @shakilxvs</span>
           </a>
 
           <button
@@ -77,13 +77,13 @@ export default function Header() {
               </Link>
             ))}
             <a
-              href="https://github.com/shakilxvs/qrforge"
+              href="https://instagram.com/shakilxvs"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 flex items-center gap-2 rounded-md px-3 py-2 text-sm text-[var(--text-secondary)] hover:bg-[var(--bg-hover)] hover:text-[var(--text-primary)]"
             >
-              <Star className="h-4 w-4" />
-              Star on GitHub
+              <Instagram className="h-4 w-4" />
+              Follow @shakilxvs
             </a>
           </nav>
         </div>
